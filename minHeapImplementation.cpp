@@ -1,42 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-class MinHeap {
+class MinHeap
+{
 public:
     vector<int> heap;
 
-    MinHeap() {
-        heap = {5, 10, 20, 30};
+    int getLeftChildIndex(int i)
+    {
+        return (i * 2) + 1;
     }
-
-    int getLeftChildIndex(int i) { return (2 * i) + 1; }
-    int getRightChildIndex(int i) { return (2 * i) + 2; }
-    int getParentIndex(int i) { return (i - 1) / 2; }
-
-    void insert(int val) {
+    int getRightChildIndex(int i)
+    {
+        return (i * 2) + 2;
+    }
+    int getParentIndex(int i)
+    {
+        return (i - 1) / 2;
+    }
+    void insertVal(int val)
+    {
         heap.push_back(val);
-        int lastIndex = heap.size() - 1;
-        heapifyUp(lastIndex);
+        heapify(heap.size() - 1);
     }
-
-    void heapifyUp(int i) {
-        while (i > 0) {
+    void heapify(int i)
+    {
+        while (i > 0)
+        {
             int parentIndex = getParentIndex(i);
-            if (heap[i] < heap[parentIndex]) {
-                swap(heap[i], heap[parentIndex]);
+            if (heap[parentIndex] > heap[i])
+            {
+                swap(heap[parentIndex], heap[i]);
                 i = parentIndex;
-            } else break;
+            }
+            else{
+                break;
+            }
         }
+       
     }
-
-    void printHeap() {
-        for (int x : heap) cout << x << " ";
-        cout << endl;
+    void printHeap(){
+        for(auto i:heap){
+            cout<<i<<" ";
+        }cout<<endl;
     }
 };
-
-int main() {
+int main()
+{
     MinHeap heap;
-    heap.insert(1);
-    heap.printHeap(); 
+    heap.insertVal(5);
+    heap.insertVal(20);
+    heap.insertVal(4);
+    heap.insertVal(10);
+    heap.insertVal(1);
+    heap.insertVal(0);
+    heap.printHeap();
+    return 0;
 }
